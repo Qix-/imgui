@@ -39,7 +39,11 @@ if (NOT IMGUI_DEMO)
     target_compile_definitions (imgui PUBLIC -DIMGUI_DISABLE_DEMO_WINDOWS=1)
 endif ()
 
-if (IMGUI_IMPL_SDL)
+if (IMGUI_IMPL_SDL AND NOT SDL2_LIBDIR)
+    message(FATAL_ERROR "SDL requested but not found")
+endif ()
+
+if (IMGUI_IMPL_SDL AND SDL2_LIBDIR)
     include (examples/imgui_impl_sdl.cmake)
 endif ()
 if (IMGUI_IMPL_METAL)
